@@ -1,0 +1,112 @@
+/* --- 全体の設定 --- */
+body {
+    /* 背景画像（宇宙） */
+    background-image: url('back.jpg');
+    background-size: cover;
+    background-attachment: fixed; /* 背景を固定 */
+    background-position: center center;
+    background-repeat: no-repeat;
+    
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px; /* 画面端に余白を追加 */
+    box-sizing: border-box; /* paddingを含めて計算 */
+    
+    /* 基本フォント（読みやすさ重視） */
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+    color: #333; /* 基本の文字色（濃いグレー） */
+    line-height: 1.6;
+}
+
+/* --- コンテンツとフッターの共通スタイル（雲のような白背景） --- */
+.content-wrapper,
+footer {
+    /* 挨拶文の「雲」をイメージした半透明の白 */
+    background-color: rgba(255, 255, 255, 0.92); 
+    padding: 25px 30px;
+    border-radius: 12px;
+    margin: 20px auto;
+    max-width: 800px;
+    /* 浮き上がって見えるように影を追加 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+/* --- ヘッダー画像 --- */
+.header-image {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+/* --- 見出し H1 --- */
+h1 {
+    /* 挨拶文の「芸術思考」から、知的で落ち着いた濃紺（夜空の色） */
+    color: #1c1d3a;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* --- ステータスメッセージ --- */
+#statusMessage {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #0056b3; /* 記録されたことを示す青 */
+}
+
+/* --- ギャラリー情報 --- */
+.gallery-info {
+    text-align: left;
+    display: inline-block;
+    margin: 25px 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: rgba(248, 249, 250, 0.95); /* メインより少し色を変える */
+    width: 90%; /* 中央寄せの中で幅を調整 */
+    box-sizing: border-box;
+}
+
+.gallery-info p {
+    margin: 10px 0; /* 絵文字とテキストの行間を調整 */
+}
+
+.gallery-info hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 10px 0;
+}
+
+/* --- フォームへの案内 --- */
+.form-link-area {
+    margin-top: 15px;
+}
+
+/* --- リンクスタイル --- */
+a {
+    color: #0056b3; /* 落ち着いた青 */
+    text-decoration: none;
+    font-weight: 600;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #003d80;
+}
+
+/* --- フッター固有の調整 --- */
+footer p {
+    margin: 0;
+    display: flex; /* お問い合わせとアイコンを横並び */
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* スマホで改行されるように */
+}
+
+footer a {
+    display: inline-flex; /* アイコンの縦位置を調整 */
+    align-items: center;
+    margin-left: 10px;
+}
