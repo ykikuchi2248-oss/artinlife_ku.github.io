@@ -53,8 +53,18 @@ h1 {
 #statusMessage {
     font-size: 1.1em;
     font-weight: bold;
-    color: #0056b3; /* 記録されたことを示す青 */
+    /* ▼ 変更点: 色指定をクラスに移動 ▼ */
 }
+
+#statusMessage.sending {
+    color: #666; /* 送信中（グレー） */
+}
+
+#statusMessage.completed {
+    color: #0056b3; /* 記録完了（青） */
+}
+/* ▲ 変更点 ▲ */
+
 
 /* --- ギャラリー情報 --- */
 .gallery-info {
