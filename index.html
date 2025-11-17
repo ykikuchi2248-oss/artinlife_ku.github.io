@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art in Lifeギャラリー 来場者数記録用サイト</title>
+    <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+
+    <div id="messageArea" class="content-wrapper">
+        
+        <img src="title.png" alt="Art in Life GALLERY" class="header-image">
+        
+        <h1>Art in Lifeギャラリーへようこそ！</h1>
+        <p id="statusMessage"></p>
+        
+        <div class="gallery-info">
+            <p>🎨 <b>アートギャラリー『Art in Life』</b></p>
+            <p>テーマ:『星と宇宙』</p>
+            <p>📅 2025年11月2日〜2026年3月31日</p>
+            <p>
+                📍 
+                <a href="https://maps.app.goo.gl/szACEiBzkfCgMiydA" target="_blank" rel="noopener noreferrer">
+                    金沢大学 自然科学本館 1階
+                </a>
+            </p>
+            
+            <hr>
+            
+            <p>🎨 <b>Art Gallery ‘Art in Life’</b></p>
+            <p>Theme: ‘Stars and the Universe’</p>
+            <p>📅 November 2, 2025 - March 31, 2026</p>
+            <p>
+                📍 
+                <a href="https://maps.app.goo.gl/szACEiBzkfCgMiydA" target="_blank" rel="noopener noreferrer">
+                    Kanazawa University, Main Building of Natural Sciences, 1st Floor
+                </a>
+            </p>
+        </div>
+
+        <p class="form-link-area">
+            ご観覧いただいた後に皆さまのご意見、ご感想を募集しています。
+            <a href="https://forms.gle/FoY44pNm2aoGpL9x6" target="_blank" rel="noopener noreferrer">こちらのフォーム</a>
+            からご回答にご協力をお願いいたします。
+        </p>
+    </div>
+
+    <footer>
+        <p>
+            お問い合わせ先：artinlife.kanazawa (a) gmail.com
+            <a href="https://www.instagram.com/artinlife_793/" target="_blank" rel="noopener noreferrer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="18.5" y1="5.5" x2="18.51" y2="5.5"></line>
+                </svg>
+            </a>
+        </p>
+    </footer>
+
+    <script>
+        // ページが読み込まれたら実行
+        window.addEventListener('DOMContentLoaded', () => {
+            
+            const statusMessageElement = document.getElementById('statusMessage');
+
+            // ▼▼▼ 設定してください ▼▼▼
+            const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyLxgn2HVisUlRWxjMb-W-eaVe0e7CF7gJ5r-t_DE9CINPe_14eq8D5AoZerOJ-Fna6/exec";
+            // ▲▲▲ 設定はここまで ▲▲▲
+
+            if (!sessionStorage.getItem('hasLogged')) {
+                
+                console.log("初回アクセスと判断。ログを送信します。");
+
+                const referer = document.referrer;
+                const userAgent = navigator.userAgent;
+                const language = navigator.language;
+
+                const postData = {
+                    referer: referer,
+                    userAgent: userAgent,
+                    language: language
+                };
+
+                fetch(GAS_WEB_APP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(postData)
+                })
+                .then(response => {
+                    console.log("ログ送信を試行しました。");
+                })
+                .catch(error => {
+                    console.error('ログ送信エラー:', error);
+                });
+
+                sessionStorage.setItem('hasLogged', 'true');
+
+                statusMessageElement.textContent = '来場が正常に記録されました';
+
+            } else {
+                console.log("リロードのため、ログ送信はスキップします。");
+                statusMessageElement.textContent = '来場が正常に記録されました';
+            }
+        });
+    </script>
+
+</body>
+</html>
