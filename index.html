@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Art in Lifeギャラリー 来場者数記録用サイト</title>
     <link rel="stylesheet" href="style.css">
-    </head>
+</head>
 <body>
 
     <div id="messageArea" class="content-wrapper">
@@ -40,7 +40,7 @@
         </div>
 
         <p class="form-link-area">
-            ご観覧いただいた後に皆さまのご意見、ご感想を募集しています。
+            皆さまのご意見、ご感想を募集しています。
             <a href="https://forms.gle/FoY44pNm2aoGpL9x6" target="_blank" rel="noopener noreferrer">こちらのフォーム</a>
             からご回答にご協力をお願いいたします。
         </p>
@@ -60,18 +60,18 @@
     </footer>
 
     <script>
-        // ページが読み込まれたら実行
         window.addEventListener('DOMContentLoaded', () => {
             
             const statusMessageElement = document.getElementById('statusMessage');
-
-            // ▼▼▼ 設定してください ▼▼▼
             const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyLxgn2HVisUlRWxjMb-W-eaVe0e7CF7gJ5r-t_DE9CINPe_14eq8D5AoZerOJ-Fna6/exec";
-            // ▲▲▲ 設定はここまで ▲▲▲
 
             if (!sessionStorage.getItem('hasLogged')) {
                 
                 console.log("初回アクセスと判断。ログを送信します。");
+
+                // 1. 「送信中...」を表示し、スタイルを適用
+                statusMessageElement.textContent = '送信中...';
+                statusMessageElement.className = 'sending';
 
                 const referer = document.referrer;
                 const userAgent = navigator.userAgent;
@@ -86,9 +86,7 @@
                 fetch(GAS_WEB_APP_URL, {
                     method: 'POST',
                     mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(postData)
                 })
                 .then(response => {
@@ -96,18 +94,22 @@
                 })
                 .catch(error => {
                     console.error('ログ送信エラー:', error);
+                })
+                .finally(() => {
+                    // 2. 処理試行後、「記録されました」にメッセージとスタイルを更新
+                    sessionStorage.setItem('hasLogged', 'true');
+                    statusMessageElement.textContent = '来場が正常に記録されました';
+                    statusMessageElement.className = 'completed';
                 });
-
-                sessionStorage.setItem('hasLogged', 'true');
-
-                statusMessageElement.textContent = '来場が正常に記録されました';
 
             } else {
                 console.log("リロードのため、ログ送信はスキップします。");
+                
+                // 3. リロード時も「記録完了」のスタイルを適用
                 statusMessageElement.textContent = '来場が正常に記録されました';
+                statusMessageElement.className = 'completed';
             }
         });
     </script>
-
-</body>
+    </body>
 </html>
