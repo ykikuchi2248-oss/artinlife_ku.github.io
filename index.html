@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-779764R67M"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-779764R67M');
-</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Art in Lifeギャラリー 来場者数記録用サイト</title>
@@ -22,6 +13,7 @@
         <img src="title.png" alt="Art in Life GALLERY" class="header-image">
         
         <h1>Art in Lifeギャラリーへようこそ！</h1>
+        
         <p id="statusMessage"></p>
         
         <div class="gallery-info">
@@ -48,22 +40,26 @@
             </p>
         </div>
 
-        <p class="form-link-area">
-            皆さまのご意見、ご感想を募集しています。
-            <a href="https://forms.gle/FoY44pNm2aoGpL9x6" target="_blank" rel="noopener noreferrer">こちらのフォーム</a>
-            からご回答にご協力をお願いいたします。
-        </p>
     </div>
 
     <footer>
         <p>
             お問い合わせ先：artinlife.kanazawa (a) gmail.com
-            <a href="https://www.instagram.com/artinlife_793/" target="_blank" rel="noopener noreferrer">
+            
+            <a href="https://www.instagram.com/artinlife_793/" target="_blank" rel="noopener noreferrer" title="Instagram">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                     <line x1="18.5" y1="5.5" x2="18.51" y2="5.5"></line>
                 </svg>
+            </a>
+
+            <a href="https://artinlife793.base.shop/" target="_blank" rel="noopener noreferrer" title="BASE (公式オンラインショップ)">
+                <img src="base_logo_vertical_black.png" alt="BASE" style="height: 20px; width: auto;">
+            </a>
+
+            <a href="#" title="公式HP" style="font-size: 0.9em; font-weight: bold; color: #333;" onclick="return false;">
+                公式HP
             </a>
         </p>
     </footer>
@@ -72,13 +68,21 @@
         window.addEventListener('DOMContentLoaded', () => {
             
             const statusMessageElement = document.getElementById('statusMessage');
+            
+            const completionMessageHTML = `
+                <span style="color: #0056b3; font-weight: bold; font-size: 1.1em;">来場が正常に記録されました</span>
+                <br><br>
+                ご観覧いただいた後に皆さまのご意見、ご感想を募集しています。<br>
+                <a href="https://forms.gle/FoY44pNm2aoGpL9x6" target="_blank" rel="noopener noreferrer">こちらのフォーム</a>
+                からご回答にご協力をお願いいたします。
+            `;
+
             const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyLxgn2HVisUlRWxjMb-W-eaVe0e7CF7gJ5r-t_DE9CINPe_14eq8D5AoZerOJ-Fna6/exec";
 
             if (!sessionStorage.getItem('hasLogged')) {
                 
                 console.log("初回アクセスと判断。ログを送信します。");
 
-                // 1. 「送信中...」を表示し、スタイルを適用
                 statusMessageElement.textContent = '送信中...';
                 statusMessageElement.className = 'sending';
 
@@ -105,21 +109,19 @@
                     console.error('ログ送信エラー:', error);
                 })
                 .finally(() => {
-                    // 2. 処理試行後、「記録されました」にメッセージとスタイルを更新
                     sessionStorage.setItem('hasLogged', 'true');
-                    statusMessageElement.textContent = '来場が正常に記録されました';
+                    statusMessageElement.innerHTML = completionMessageHTML;
                     statusMessageElement.className = 'completed';
                 });
 
             } else {
                 console.log("リロードのため、ログ送信はスキップします。");
                 
-                // 3. リロード時も「記録完了」のスタイルを適用
-                statusMessageElement.textContent = '来場が正常に記録されました';
+                statusMessageElement.innerHTML = completionMessageHTML;
                 statusMessageElement.className = 'completed';
             }
         });
     </script>
-    </body>
-</html>
 
+</body>
+</html>
